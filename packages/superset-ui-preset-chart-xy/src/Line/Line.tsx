@@ -18,7 +18,7 @@ import XYChartLayout from '../utils/XYChartLayout';
 import WithLegend from '../components/WithLegend';
 import Encoder, { ChannelTypes, Encoding, Outputs } from './Encoder';
 import { Dataset, PlainObject } from '../encodeable/types/Data';
-import ChartLegend from '../components/ChartLegend';
+import ChartLegend from '../components/legend/ChartLegend';
 
 chartTheme.gridStyles.stroke = '#f1f3f5';
 
@@ -60,6 +60,9 @@ const CIRCLE_STYLE = { strokeWidth: 1.5 };
 class LineChart extends PureComponent<Props> {
   static defaultProps = defaultProps;
 
+  encoder: Encoder;
+  private createEncoder: () => void;
+
   constructor(props: Props) {
     super(props);
 
@@ -75,9 +78,6 @@ class LineChart extends PureComponent<Props> {
     this.encoder = createEncoder(this.props.encoding);
     this.renderChart = this.renderChart.bind(this);
   }
-
-  encoder: Encoder;
-  private createEncoder: () => void;
 
   renderChart(dim: Dimension) {
     const { width, height } = dim;
